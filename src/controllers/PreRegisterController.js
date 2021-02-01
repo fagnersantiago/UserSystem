@@ -7,13 +7,14 @@ class UserPreRegister {
     const { admin_id } = request.headers;
 
     try {
+    
       let user_admin = await Admin.findById(admin_id);
-
+ //    verify if user_admin exists
       if (!user_admin)
         return response
         .status(400)
         .send({ message: "Id does not exist" });
-
+//      create pre register
       const user_pre_register = await User_Pre_Register.create({
         user_admin,
         pre_register_name,

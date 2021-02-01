@@ -6,7 +6,7 @@ const UserRegisterSchema = new mongoose.Schema ({
     email: String,
     cpf: Number,
     competence: [String],
-    telefone: String,
+    phone: String,
     validator: Boolean,
 
     user_admin:{
@@ -15,11 +15,6 @@ const UserRegisterSchema = new mongoose.Schema ({
       ref:'Admin'
   },
 
-  pre_register_name: {
-
-      type: mongoose.Schema.Types,
-      ref:'PreRegister'
-  }
 
   });
   

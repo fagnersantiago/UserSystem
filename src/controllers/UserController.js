@@ -1,18 +1,16 @@
 const User = require("../models/UserRegister");
 const Admin = require("../models/Admin");
-const Pre_Register = require('../models/PreRegistration');
+
 
 class UserRegister {
   async store(request, response) {
-    const { name, email, cpf, competence, telefone } = request.body;
-    const { pre_register_name } = request.body;
+    const { name, email, cpf, competence, phone, validator} = request.body;
     const {admin_id } = request.headers;
-    console.log(admin_id)
-    
+
     try {
 
     let admin = await Admin.findById(admin_id);
-
+ 
     if(!admin) return response
     .status(400)
     .send({message: 'Id does not exists'})
@@ -26,12 +24,12 @@ class UserRegister {
          
       user = await User.create({
         admin,
-        pre_register_name,
         name,
         email,
         cpf,
         competence: competence.split(",").map((tech) => tech.trim()),
-        telefone,
+        phone,
+        validator
       });
 
     return response.json(user);
