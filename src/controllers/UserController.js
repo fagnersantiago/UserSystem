@@ -14,7 +14,7 @@ class UserRegister {
     if(!admin) return response
     .status(400)
     .send({message: 'Id does not exists'})
-
+    
       let user = await User.findOne({ cpf });
 
       if (user)
@@ -26,12 +26,12 @@ class UserRegister {
         admin,
         name,
         email,
-        cpf,
+        cpf: cpf.replace(/\D+/g,'.'),
         competence: competence.split(",").map((tech) => tech.trim()),
         phone,
         validator
       });
-
+     
     return response.json(user);
 
     } catch (error) {
