@@ -1,8 +1,11 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require('cors')
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
 
-const routes = require("./routes");
+import routes from "./routes.js";
+import APPErros from "./errors/APPErrors.js";
+
+
 const app = express();
 
 mongoose.connect(
@@ -15,6 +18,15 @@ mongoose.connect(
 app.use(cors());
 app.use(express.json());
 app.use(routes);
+
+app.use((err, response, ) => {
+    if (err instanceof  APPErros) {
+  
+      return response.status(err.status).json({
+        message: err.status
+      });
+    }
+  });
 
 app.listen(3333, () => {
   console.log("server started on port: 3333");
