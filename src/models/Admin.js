@@ -1,9 +1,11 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const AdminSchema = new mongoose.Schema({
+const { Schema, model } = mongoose;
+
+const AdminSchema = new Schema({
 
     name: String,
     email: String,
 });
 
-module.exports = mongoose.model('Admin', AdminSchema);
+export default model('Admin', AdminSchema);

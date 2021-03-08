@@ -1,45 +1,38 @@
-const User = require("../models/UserRegister");
-const Admin = require("../models/Admin");
+import User from "../models/UserRegister.js";
+import Admin from "../models/Admin.js";
+import APPErros from "../errors/APPErrors.js";
 
 
 class UserRegister {
   async store(request, response) {
-    const { name, email, cpf, competence, phone, validator} = request.body;
-    const {admin_id } = request.headers;
+    const { name, email, cpf, competence, phone, validator } = request.body;
+    const { admin_id } = request.headers;
 
-    try {
-
-    let admin = await Admin.findById(admin_id);
- 
-    if(!admin) return response
-    .status(400)
-    .send({message: 'Id does not exists'})
     
+      let admin = await Admin.findById(admin_id);
+
+      if (!admin) {
+       throw new APPErros("id does not exists");
+      }
+
       let user = await User.findOne({ cpf });
 
       if (user)
-        return response
-        .status(401)
-        .send({ message: "CPF already exists" });
-         
+        throw new APPErros('CPF already exists')
+
       user = await User.create({
         admin,
         name,
         email,
-        cpf: cpf.replace(/\D+/g,'.'),
+        cpf: cpf.replace(/\D+/g, "."),
         competence: competence.split(",").map((tech) => tech.trim()),
         phone,
-        validator
+        validator,
       });
-     
-    return response.json(user);
 
-    } catch (error) {
-      return response
-      .status(400)
-      .send({ message: "error" +  error});
-    }
+      throw new APPErros(err);
+    } 
   }
-}
 
-module.exports = new UserRegister();
+
+export default new UserRegister;

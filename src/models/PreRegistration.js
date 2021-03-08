@@ -1,15 +1,15 @@
-const mongoose = require('mongoose');
-
-const PreRegistrationSchema = new mongoose.Schema({
+import  mongoose from 'mongoose';
+const { Schema, model } = mongoose
+const PreRegistrationSchema = new Schema({
 
     pre_register_name: String,
 
-    user_admin:{
+    // user_admin:{
 
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'Admin'
-    }
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref:'Admin'
+    // }
   
 })
 
-module.exports = new mongoose.model('PreRegister', PreRegistrationSchema);
+export default new model('PreRegister', PreRegistrationSchema);

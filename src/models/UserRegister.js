@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-
-const UserRegisterSchema = new mongoose.Schema ({
+import mongoose from 'mongoose';
+const  { Schema, model } = mongoose
+const UserRegisterSchema = new Schema ({
 
     name: String,
     email: String,
@@ -11,11 +11,11 @@ const UserRegisterSchema = new mongoose.Schema ({
 
     user_admin:{
 
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref:'Admin'
   },
 
 
   });
   
-module.exports = mongoose.model('UserRegister', UserRegisterSchema);
+export default model('UserRegister', UserRegisterSchema);

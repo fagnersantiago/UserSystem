@@ -1,8 +1,8 @@
-const User = require("../models/UserRegister");
+import find  from "../models/UserRegister.js";
 
 class Dashboard {
   async index(request, response) {
-    const userName = await User.find();
+    const userName = await find();
 
     //order by name
     userName.sort(function (name1, name2) {
@@ -14,11 +14,11 @@ class Dashboard {
  // search by name 
   async show(request, response) {
     const { name } = request.query;
-    const userValidator = await User.find({ name });
+    const userValidator = await find({ name });
     console.log(name)
     return response.json(userValidator);
     
   }
 }
 
-module.exports = new Dashboard();
+export default new Dashboard();

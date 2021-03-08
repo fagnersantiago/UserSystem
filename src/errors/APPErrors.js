@@ -1,20 +1,8 @@
 
-class APPErros {
-  
-    #privatemassage
-    #privateErr
-    #privateStatusCode
-    constructor(message, err, statusCode=400){
-
-        
-       this.#privatemassage = message
-       this.#privateErr = err;
-       this.#privateStatusCode = statusCode;
-
-         
-    }
-    
-    
+export default class APPErros {
+  constructor(message, err = Error, statusCode = 400) {
+    this.message = message;
+    this.err = err;
+    this.statusCode = statusCode;
+  }
 }
-
-export default new APPErros()
